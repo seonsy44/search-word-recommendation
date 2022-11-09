@@ -24,6 +24,7 @@ export function DiseaseSearchProvider({ children, DiseaseSearchService }: Diseas
     }
 
     const { data, status } = await DiseaseSearchService.searchDiseases(params);
+    console.info('calling api');
 
     if (status >= 200 && status < 300) {
       cache.set(`/sick?q=${params.q}`, data);
