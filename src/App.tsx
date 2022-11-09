@@ -1,5 +1,7 @@
+import DiseaseSearch from './pages/DiseaseSearch';
+
 function App() {
-  return <div />;
+  return <DiseaseSearch />;
 }
 
 export default App;
