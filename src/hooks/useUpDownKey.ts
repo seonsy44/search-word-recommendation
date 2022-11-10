@@ -4,6 +4,8 @@ function useUpDownKey(elRef: React.MutableRefObject<HTMLElement | null>) {
   const [focusIndex, setFocusIndex] = useState<number>(-1);
 
   const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.isComposing) return;
+
     switch (e.key) {
       case 'ArrowDown':
         setFocusIndex((cur) => {
