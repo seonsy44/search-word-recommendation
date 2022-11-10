@@ -4,18 +4,16 @@ import { MdSearch } from 'react-icons/md';
 import { flexBox } from '../../styles/mixins';
 import { useDiseaseSearch } from '../../context/DiseaseSearchContext';
 import { parseSickNm } from '../../utils';
+import useFocus from '../../hooks/useFocus';
 
 type RecommendItemProps = {
   sickNm: string;
 };
 
 function RecommendItem({ sickNm }: RecommendItemProps) {
-  const [isFocused, setIsFocused] = useState(false);
+  const { isFocused, handleFocus, handleBlur } = useFocus();
   const { searchValue } = useDiseaseSearch();
   const parsedSickNm = parseSickNm(sickNm, searchValue);
-
-  const handleFocus = () => setIsFocused(true);
-  const handleBlur = () => setIsFocused(false);
 
   return (
     <Anchor href={`/sick/${sickNm}`} onFocus={handleFocus} onBlur={handleBlur}>
