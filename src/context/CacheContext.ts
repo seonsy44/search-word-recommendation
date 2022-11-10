@@ -1,9 +1,8 @@
 import React, { createContext, useContext } from 'react';
-import { Disease } from '../types';
-import { CacheConfig, CacheProviderProps } from '../types/CacheType';
+import { CacheConfig, CacheProviderProps, Response } from '../types/CacheType';
 
 const cacheConfig: CacheConfig = {
-  cache: new Map<string, Disease[]>(),
+  cache: new Map<string, Response>(),
   fetch: () => undefined,
 };
 
