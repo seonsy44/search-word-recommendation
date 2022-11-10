@@ -6,6 +6,7 @@ import { useCache } from './CacheContext';
 const diseaseSearchConfig = {
   diseases: <Disease[]>[],
   getDiseases: () => undefined,
+  searchValue: '',
 };
 
 const DiseaseSearchContext = createContext<DiseaseSearchConfig>(diseaseSearchConfig);
@@ -14,10 +15,13 @@ export const useDiseaseSearch = () => useContext(DiseaseSearchContext);
 
 export function DiseaseSearchProvider({ children, DiseaseSearchService }: DiseaseSearchProviderProps) {
   const [diseases, setDiseases] = useState<Disease[] | undefined>([]);
+  const [searchValue, setSearchValue] = useState('');
   const { cache } = useCache();
 
   const getDiseases = async (params: { q: string }) => {
     if (!params.q.length) return setDiseases([]);
+
+    setSearchValue(params.q);
 
     if (cache.has(`/sick?q=${params.q}`)) {
       setDiseases(cache.get(`/sick?q=${params.q}`));
@@ -34,7 +38,7 @@ export function DiseaseSearchProvider({ children, DiseaseSearchService }: Diseas
 
   return React.createElement(
     DiseaseSearchContext.Provider,
-    { value: { diseases, getDiseases } },
+    { value: { diseases, getDiseases, searchValue } },
     React.Children.only(children)
   );
 }

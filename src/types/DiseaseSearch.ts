@@ -11,4 +11,5 @@ export type DiseaseSearchProviderProps = {
 export type DiseaseSearchConfig = {
   diseases: Disease[] | undefined;
   getDiseases: (() => undefined) | ((params: { q: string }) => Promise<void>);
+  searchValue: string;
 };
