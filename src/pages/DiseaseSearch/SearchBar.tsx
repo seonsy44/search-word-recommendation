@@ -3,19 +3,12 @@ import { MdSearch } from 'react-icons/md';
 import { flexBox } from '../../styles/mixins';
 import useSearchBar from '../../hooks/useSearchBar';
 
-type SearchBarProps = {
-  setIsFocused: React.Dispatch<React.SetStateAction<boolean>>;
-};
-
-function SearchBar({ setIsFocused }: SearchBarProps) {
+function SearchBar() {
   const { handleChange } = useSearchBar();
-
-  const handleFocus = () => setIsFocused(true);
-  const handleBlur = () => setIsFocused(false);
 
   return (
     <Container>
-      <Input onChange={handleChange} placeholder="질환명을 입력해 주세요." onFocus={handleFocus} onBlur={handleBlur} />
+      <Input onChange={handleChange} placeholder="질환명을 입력해 주세요." />
 
       <SearchButton>
         <MdSearch />

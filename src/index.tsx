@@ -15,7 +15,7 @@ const axiosInstance = getAxiosInstance(`http://${window.location.hostname}:4000/
 const diseaseSearchService = DiseaseSearchService(axiosInstance);
 
 root.render(
-  <React.StrictMode>
+  <>
     <GlobalStyle />
     <ThemeProvider theme={colors}>
       <CacheProvider>
@@ -24,5 +24,5 @@ root.render(
         </DiseaseSearchProvider>
       </CacheProvider>
     </ThemeProvider>
-  </React.StrictMode>
+  </>
 );

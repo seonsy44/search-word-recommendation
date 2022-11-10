@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
 import { flexBox } from '../../styles/mixins';
@@ -9,28 +10,41 @@ type RecommendItemProps = {
 };
 
 function RecommendItem({ sickNm }: RecommendItemProps) {
+  const [isFocused, setIsFocused] = useState(false);
   const { searchValue } = useDiseaseSearch();
   const parsedSickNm = parseSickNm(sickNm, searchValue);
 
-  return (
-    <Container>
-      <IconContainer>
-        <MdSearch />
-      </IconContainer>
+  const handleFocus = () => setIsFocused(true);
+  const handleBlur = () => setIsFocused(false);
 
-      <span dangerouslySetInnerHTML={{ __html: parsedSickNm }} />
-    </Container>
+  return (
+    <Anchor href={`/sick/${sickNm}`} onFocus={handleFocus} onBlur={handleBlur}>
+      <Container isFocused={isFocused}>
+        <IconContainer>
+          <MdSearch />
+        </IconContainer>
+
+        <span dangerouslySetInnerHTML={{ __html: parsedSickNm }} />
+      </Container>
+    </Anchor>
   );
 }
 
-export default RecommendItem;
+export default React.memo(RecommendItem);
 
-const Container = styled.li`
+const Anchor = styled.a`
+  &:focus {
+    outline: none;
+  }
+`;
+
+const Container = styled.div<{ isFocused: boolean }>`
   ${flexBox('row', 'flex-start')};
   width: 100%;
   padding: 12px 5px;
   border-radius: 5px;
   cursor: pointer;
+  background-color: ${({ theme, isFocused }) => (isFocused ? theme.secondary : 'white')};
 
   &:hover {
     background-color: ${({ theme }) => theme.secondary};
