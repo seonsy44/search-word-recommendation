@@ -1,27 +1,9 @@
-import React, { useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { flexBox } from '../../styles/mixins';
 import SearchBar from './SearchBar';
-import RecommendBox from './RecommendBox';
-import RecommendItem from './RecommendItem';
-import { useDiseaseSearch } from '../../context/DiseaseSearchContext';
-import useUpDownKey from '../../hooks/useUpDownKey';
+import SearchRecommend from './SearchRecommend';
 
 function DiseaseSearch() {
-  const { diseases, searchValue } = useDiseaseSearch();
-  const divRef = useRef<HTMLDivElement | null>(null);
-  const { handleKeyDown } = useUpDownKey(divRef);
-
-  useEffect(() => {
-    if (searchValue.length) {
-      document.addEventListener('keydown', handleKeyDown);
-    }
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [searchValue]);
-
   return (
     <Container>
       <Title>국내 모든 임상시험 검색하고</Title>
@@ -29,15 +11,7 @@ function DiseaseSearch() {
 
       <SearchBar />
 
-      {!!searchValue.length && (
-        <RecommendBox>
-          <div ref={divRef}>
-            {diseases?.map(({ sickNm }) => (
-              <RecommendItem key={sickNm} sickNm={sickNm} />
-            ))}
-          </div>
-        </RecommendBox>
-      )}
+      <SearchRecommend />
     </Container>
   );
 }
