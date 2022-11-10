@@ -17,7 +17,7 @@ export function DiseaseSearchProvider({ children, DiseaseSearchService }: Diseas
   const { cache } = useCache();
 
   const getDiseases = async (params: { q: string }) => {
-    if (!params.q.length) return;
+    if (!params.q.length) return setDiseases([]);
 
     if (cache.has(`/sick?q=${params.q}`)) {
       setDiseases(cache.get(`/sick?q=${params.q}`));
