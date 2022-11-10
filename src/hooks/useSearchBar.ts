@@ -13,7 +13,7 @@ function useSearchBar() {
       debounce((value) => {
         setSearchValue(value);
 
-        getDiseases({ q: value });
+        getDiseases({ params: { q: value } });
       }, 300),
     [searchValue]
   );
