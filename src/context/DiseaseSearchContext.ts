@@ -1,6 +1,7 @@
+import { AxiosRequestConfig } from 'axios';
 import React, { createContext, useContext, useState } from 'react';
 import { Disease } from '../types';
-import { DiseaseSearchConfig, DiseaseSearchProviderProps } from '../types/DiseaseSearch';
+import { DiseaseSearchConfig, DiseaseSearchProviderProps } from '../types/DiseaseSearchType';
 import { useCache } from './CacheContext';
 
 const diseaseSearchConfig = {
@@ -14,30 +15,25 @@ const DiseaseSearchContext = createContext<DiseaseSearchConfig>(diseaseSearchCon
 export const useDiseaseSearch = () => useContext(DiseaseSearchContext);
 
 export function DiseaseSearchProvider({ children, DiseaseSearchService }: DiseaseSearchProviderProps) {
-  const [diseases, setDiseases] = useState<Disease[] | undefined>([]);
+  const [diseases, setDiseases] = useState<Disease[] | undefined | unknown>([]);
   const [searchValue, setSearchValue] = useState('');
-  const { cache } = useCache();
+  const { fetch } = useCache();
 
-  const getDiseases = async (params: { q: string }) => {
-    if (!params.q.length) {
+  const getDiseases = ({ params: { q } }: AxiosRequestConfig) => {
+    if (!q.length) {
       setDiseases([]);
       setSearchValue('');
       return;
     }
 
-    setSearchValue(params.q);
+    setSearchValue(q);
 
-    if (cache.has(`/sick?q=${params.q}`)) {
-      setDiseases(cache.get(`/sick?q=${params.q}`));
-    }
-
-    const { data, status } = await DiseaseSearchService.searchDiseases(params);
-    console.info('calling api');
-
-    if (status >= 200 && status < 300) {
-      cache.set(`/sick?q=${params.q}`, data);
-      setDiseases(data);
-    }
+    fetch(
+      `/sick?q=${q}`,
+      DiseaseSearchService.searchDiseases,
+      { params: { q } },
+      { onSuccess: (data) => setDiseases(data) }
+    );
   };
 
   return React.createElement(
