@@ -1,4 +1,3 @@
-import { AxiosRequestConfig, AxiosResponse } from 'axios';
 import React, { createContext, useContext } from 'react';
 import { Disease } from '../types';
 import { CacheConfig, CacheProviderProps } from '../types/CacheType';

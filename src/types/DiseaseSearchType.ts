@@ -9,7 +9,7 @@ export type DiseaseSearchProviderProps = {
 };
 
 export type DiseaseSearchConfig = {
-  diseases: Disease[] | undefined | unknown;
+  diseases: Disease[] | undefined;
   getDiseases: (config: AxiosRequestConfig) => void;
   searchValue: string;
 };

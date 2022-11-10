@@ -15,7 +15,7 @@ const DiseaseSearchContext = createContext<DiseaseSearchConfig>(diseaseSearchCon
 export const useDiseaseSearch = () => useContext(DiseaseSearchContext);
 
 export function DiseaseSearchProvider({ children, DiseaseSearchService }: DiseaseSearchProviderProps) {
-  const [diseases, setDiseases] = useState<Disease[] | undefined | unknown>([]);
+  const [diseases, setDiseases] = useState<Disease[] | undefined>([]);
   const [searchValue, setSearchValue] = useState('');
   const { fetch } = useCache();
 
