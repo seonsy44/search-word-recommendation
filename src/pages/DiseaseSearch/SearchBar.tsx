@@ -4,13 +4,13 @@ import { flexBox } from '../../styles/mixins';
 import useSearchBar from '../../hooks/useSearchBar';
 
 function SearchBar() {
-  const { handleChange } = useSearchBar();
+  const { handleChange, handleSubmit } = useSearchBar();
 
   return (
-    <Container>
+    <Container onSubmit={handleSubmit}>
       <Input onChange={handleChange} placeholder="질환명을 입력해 주세요." />
 
-      <SearchButton>
+      <SearchButton type="submit">
         <MdSearch />
       </SearchButton>
     </Container>
@@ -19,7 +19,7 @@ function SearchBar() {
 
 export default SearchBar;
 
-const Container = styled.div`
+const Container = styled.form`
   position: relative;
   width: 600px;
   height: 80px;

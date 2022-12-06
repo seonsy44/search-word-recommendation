@@ -8,6 +8,13 @@ function useSearchBar() {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => debouncedSearch(e.target.value);
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (searchValue)
+      window.location.href = `${process.env.REACT_APP_CLINICAL_TRIALS_KOREA}/studies?conditions=${searchValue}`;
+  };
+
   const debouncedSearch = useMemo(
     () =>
       debounce((value) => {
@@ -18,7 +25,7 @@ function useSearchBar() {
     [searchValue]
   );
 
-  return { handleChange };
+  return { handleChange, handleSubmit };
 }
 
 export default useSearchBar;
