@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
-import { debounce } from 'lodash';
 import { useDiseaseSearch } from '../context/DiseaseSearchContext';
+import { debounce } from '../utils';
 
 function useSearchBar(inputRef: React.MutableRefObject<HTMLInputElement | null>) {
   const [searchValue, setSearchValue] = useState('');
@@ -17,7 +17,7 @@ function useSearchBar(inputRef: React.MutableRefObject<HTMLInputElement | null>)
 
   const debouncedSearch = useMemo(
     () =>
-      debounce((value) => {
+      debounce((value: string) => {
         setSearchValue(value);
 
         getDiseases({ params: { q: value } });
