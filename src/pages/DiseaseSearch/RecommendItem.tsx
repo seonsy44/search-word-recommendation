@@ -16,7 +16,10 @@ function RecommendItem({ sickNm }: RecommendItemProps) {
   const parsedSickNm = parseSickNm(sickNm, searchValue);
 
   return (
-    <Anchor href={`/sick/${sickNm}`} onFocus={handleFocus} onBlur={handleBlur}>
+    <Anchor
+      href={`${process.env.REACT_APP_CLINICAL_TRIALS_KOREA}/studies?conditions=${sickNm}`}
+      onFocus={handleFocus}
+      onBlur={handleBlur}>
       <Container isFocused={isFocused}>
         <IconContainer>
           <MdSearch />

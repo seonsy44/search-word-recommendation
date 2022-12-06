@@ -19,7 +19,7 @@ export default RecommendBox;
 
 const Container = styled.div`
   width: 600px;
-  max-height: 400px;
+  max-height: 350px;
   margin-top: 20px;
   padding: 20px;
   border-radius: 20px;

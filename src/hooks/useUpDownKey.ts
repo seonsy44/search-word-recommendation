@@ -9,13 +9,13 @@ function useUpDownKey(elRef: React.MutableRefObject<HTMLElement | null>) {
     switch (e.key) {
       case 'ArrowDown':
         setFocusIndex((cur) => {
-          if (elRef.current?.childElementCount === cur + 1) return 0;
+          if (elRef.current?.childElementCount === cur + 1) return cur;
           return cur + 1;
         });
         break;
       case 'ArrowUp':
         setFocusIndex((cur) => {
-          if (cur === 0) return elRef.current?.childElementCount ?? 1;
+          if (cur === 0) return 0;
           return cur - 1;
         });
         break;

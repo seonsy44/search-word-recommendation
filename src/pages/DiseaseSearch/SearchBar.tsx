@@ -22,7 +22,7 @@ export default SearchBar;
 const Container = styled.form`
   position: relative;
   width: 600px;
-  height: 80px;
+  min-height: 80px;
   margin-top: 20px;
 `;
 
