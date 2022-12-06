@@ -4,10 +4,15 @@ import useUpDownKey from '../../hooks/useUpDownKey';
 import RecommendBox from './RecommendBox';
 import RecommendItem from './RecommendItem';
 
-function SearchRecommend() {
+type Props = {
+  focusInput: (setFocusIndex?: React.Dispatch<React.SetStateAction<number>>) => void;
+  inputRef: React.MutableRefObject<HTMLInputElement | null>;
+};
+
+function SearchRecommend({ focusInput, inputRef }: Props) {
   const { diseases, searchValue } = useDiseaseSearch();
-  const divRef = useRef<HTMLDivElement | null>(null);
-  const { handleKeyDown } = useUpDownKey(divRef);
+  const ulRef = useRef<HTMLUListElement | null>(null);
+  const { handleKeyDown } = useUpDownKey(ulRef, inputRef, focusInput);
 
   useEffect(() => {
     if (searchValue.length) {
@@ -23,11 +28,11 @@ function SearchRecommend() {
     <>
       {!!searchValue.length && (
         <RecommendBox>
-          <div ref={divRef}>
+          <ul ref={ulRef}>
             {diseases?.map(({ sickNm }) => (
               <RecommendItem key={sickNm} sickNm={sickNm} />
             ))}
-          </div>
+          </ul>
         </RecommendBox>
       )}
     </>

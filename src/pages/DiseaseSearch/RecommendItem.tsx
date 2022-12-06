@@ -16,39 +16,40 @@ function RecommendItem({ sickNm }: RecommendItemProps) {
   const parsedSickNm = parseSickNm(sickNm, searchValue);
 
   return (
-    <Anchor
-      href={`${process.env.REACT_APP_CLINICAL_TRIALS_KOREA}/studies?conditions=${sickNm}`}
-      onFocus={handleFocus}
-      onBlur={handleBlur}>
-      <Container isFocused={isFocused}>
+    <Container isFocused={isFocused}>
+      <Anchor
+        href={`${process.env.REACT_APP_CLINICAL_TRIALS_KOREA}/studies?conditions=${sickNm}`}
+        onFocus={handleFocus}
+        onBlur={handleBlur}>
         <IconContainer>
           <MdSearch />
         </IconContainer>
 
         <span dangerouslySetInnerHTML={{ __html: parsedSickNm }} />
-      </Container>
-    </Anchor>
+      </Anchor>
+    </Container>
   );
 }
 
 export default React.memo(RecommendItem);
 
-const Anchor = styled.a`
-  &:focus {
-    outline: none;
-  }
-`;
-
-const Container = styled.div<{ isFocused: boolean }>`
-  ${flexBox('row', 'flex-start')};
+const Container = styled.li<{ isFocused: boolean }>`
   width: 100%;
-  padding: 12px 5px;
+  padding: 15px 5px;
   border-radius: 5px;
   cursor: pointer;
   background-color: ${({ theme, isFocused }) => (isFocused ? theme.secondary : 'white')};
 
   &:hover {
     background-color: ${({ theme }) => theme.secondary};
+  }
+`;
+
+const Anchor = styled.a`
+  ${flexBox('row', 'flex-start')};
+
+  &:focus {
+    outline: none;
   }
 
   > span {

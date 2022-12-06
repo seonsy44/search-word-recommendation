@@ -1,17 +1,22 @@
+import { useRef } from 'react';
 import styled from 'styled-components';
+import useSearchBar from '../../hooks/useSearchBar';
 import { flexBox } from '../../styles/mixins';
 import SearchBar from './SearchBar';
 import SearchRecommend from './SearchRecommend';
 
 function DiseaseSearch() {
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const { handleChange, handleSubmit, focusInput } = useSearchBar(inputRef);
+
   return (
     <Container>
       <Title>국내 모든 임상시험 검색하고</Title>
       <Title>온라인으로 참여하기</Title>
 
-      <SearchBar />
+      <SearchBar inputRef={inputRef} onChange={handleChange} onSubmit={handleSubmit} />
 
-      <SearchRecommend />
+      <SearchRecommend focusInput={focusInput} inputRef={inputRef} />
     </Container>
   );
 }

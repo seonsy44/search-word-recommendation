@@ -1,14 +1,18 @@
+import React from 'react';
 import styled from 'styled-components';
 import { MdSearch } from 'react-icons/md';
 import { flexBox } from '../../styles/mixins';
-import useSearchBar from '../../hooks/useSearchBar';
 
-function SearchBar() {
-  const { handleChange, handleSubmit } = useSearchBar();
+type Props = {
+  inputRef: React.MutableRefObject<HTMLInputElement | null>;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void | undefined;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+};
 
+function SearchBar({ inputRef, onChange, onSubmit }: Props) {
   return (
-    <Container onSubmit={handleSubmit}>
-      <Input onChange={handleChange} placeholder="질환명을 입력해 주세요." />
+    <Container onSubmit={onSubmit}>
+      <Input ref={inputRef} onChange={onChange} placeholder="질환명을 입력해 주세요." />
 
       <SearchButton type="submit">
         <MdSearch />
