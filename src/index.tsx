@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { ThemeProvider } from 'styled-components';
 import GlobalStyle from './styles/GlobalStyle';
@@ -11,7 +10,7 @@ import getAxiosInstance from './http/axiosInstance';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
-const axiosInstance = getAxiosInstance(`http://${window.location.hostname}:4000/`);
+const axiosInstance = getAxiosInstance(process.env.REACT_APP_SERVER_URL || '');
 const diseaseSearchService = DiseaseSearchService(axiosInstance);
 
 root.render(
